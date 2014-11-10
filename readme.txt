@@ -1,4 +1,4 @@
-=== WP Live tatistics ===
+=== WP Live Statistics ===
 Contributors: paratheme
 Donate link: 
 Tags:  statistics, wordpress statistics, wp statistics, live statistics,wordpress stats, live visitors, live Stats, web Stats, analytics, visitors count, stats
