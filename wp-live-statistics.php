@@ -333,7 +333,7 @@ function wpls_menu_init() {
 
 	//add_submenu_page('wpls_settings', __('Live Stats','menu-wpls'), __('Live Stats','menu-wpls'), 'manage_options', 'wpls_admin_online', 'wpls_admin_online');
 	
-	//add_submenu_page('wpls_settings', __('Visitors','menu-wpls'), __('Visitors','menu-wpls'), 'manage_options', 'wpls_admin_visitors', 'wpls_admin_visitors');	
+	add_submenu_page('wpls_settings', __('Visitors','menu-wpls'), __('Visitors','menu-wpls'), 'manage_options', 'wpls_admin_visitors', 'wpls_admin_visitors');	
 	
 	//add_submenu_page('wpls_settings', __('Top Geo','menu-wpls'), __('Top Geo','menu-wpls'), 'manage_options', 'wpls_admin_geo', 'wpls_admin_geo');	
 	
