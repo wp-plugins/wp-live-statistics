@@ -2,25 +2,50 @@
     <div class="para-settings">
         <div class="para-dashboard">
         	<div class="dash-box">
-                <div class="dash-box-title"><span class="para-icons user-crowd">User Online</span></div>
-                <div class="dash-box-info">Estimate total user online right now on your website. <?php echo wpls_get_datetime(); ?></div>
+                <div class="dash-box-title"><span class="para-icons user-crowd">Visitor Online</span></div>
+                <div class="dash-box-info">Estimate total visitor online right now on your website. <?php echo wpls_get_datetime(); ?></div>
                 <div class="total-online">0</div>
+                
+                
+                
+				<?php
+                    $wpls_refresh_time = get_option( 'wpls_refresh_time' );	
+                    
+                    if(!empty($wpls_refresh_time))
+                        {
+                            if($wpls_refresh_time < 3000)
+                                {
+                                    $wpls_refresh_time = '3000';
+                                }
+                            else
+                                {
+                                $wpls_refresh_time = $wpls_refresh_time;
+                                }
+                            
+                        }
+                    else
+                        {
+                            $wpls_refresh_time = '3000';
+                        }
+                
+                ?>
+
 				<script>		
-                    jQuery(document).ready(function()
+                    jQuery(document).ready(function($)
                         {
                 
                             setInterval(function(){
-                                jQuery.ajax(
+                                $.ajax(
                                         {
                                     type: 'POST',
                                     url: wpls_ajax.wpls_ajaxurl,
                                     data: {"action": "wpls_ajax_online_total"},
                                     success: function(data)
                                             {
-                                                jQuery(".total-online").html(data);
+                                                $(".total-online").html(data);
                                             }
                                         });	
-                            }, 3000)
+                            }, <?php echo $wpls_refresh_time; ?>)
                                     });
                             
                 </script> 
@@ -33,19 +58,24 @@
             
             
             
-<div class="dash-box">
-                <div class="dash-box-title"><span class="para-icons user-crowd">Total User</span></div>
-                <div class="dash-box-info">Estimate total user Session, total number of session by visitos. </div>
+			<div class="dash-box">
+                <div class="dash-box-title"><span class="para-icons user-crowd">Total Visitor</span></div>
+                <div class="dash-box-info">Estimate total visitor session. </div>
                 <div class="total-session"><?php echo wpls_TotalSession("session_id"); ?></div>
-
-                
-         
             </div>  
             
             
+			<div class="dash-box">
+                <div class="dash-box-title"><span class="para-icons user-crowd">Unique Visitor</span></div>
+                <div class="dash-box-info">Estimate unique visitor. </div>
+                <div class="unique-visitor"><?php echo wpls_UniqueVisitor("ip"); ?></div>
+            </div>  
             
-            
-            
+			<div class="dash-box">
+                <div class="dash-box-title"><span class="para-icons user-crowd">Unique Page View</span></div>
+                <div class="dash-box-info">Estimate unique page view. </div>
+                <div class="unique-visitor"><?php echo wpls_UniquePageView("isunique"); ?></div>
+            </div>              
             
             
             
@@ -57,20 +87,20 @@
             
             <div id="TopOS" style="height:350px;width:100%; "></div>
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 								<?php echo wpls_TopOS("platform"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopOS', [data],
+				  var TopOS = $.jqplot ('TopOS', [data],
 					{
 
 					  	seriesDefaults: {
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -88,7 +118,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -116,17 +146,17 @@
             
         	<div class="dash-box">
             <div class="dash-box-title"><span class="para-icons device-monitor">Top Screen Size</span></div>
-            <div class="dash-box-info">Top device screeb size.</div>
+            <div class="dash-box-info">Top device screen size.</div>
             <div id="TopScreenSize" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 								<?php echo wpls_TopScreenSize("screensize"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopScreenSize', [data],
+				  var TopOS = $.jqplot ('TopScreenSize', [data],
 					{
 
 
@@ -136,7 +166,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -154,7 +184,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -188,13 +218,13 @@
             <div id="TopBrowsers" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 								<?php echo wpls_TopBrowsers("browser"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopBrowsers', [data],
+				  var TopOS = $.jqplot ('TopBrowsers', [data],
 					{
 
 
@@ -204,7 +234,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -222,7 +252,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -255,13 +285,13 @@
             <div id="TopPageTerms" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 								<?php echo wpls_TopPageTerms("url_term"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopPageTerms', [data],
+				  var TopOS = $.jqplot ('TopPageTerms', [data],
 					{
 
 
@@ -271,7 +301,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -289,7 +319,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -321,13 +351,13 @@
             <div id="TopCountries" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 							<?php echo wpls_TopCountries("countryName"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopCountries', [data],
+				  var TopOS = $.jqplot ('TopCountries', [data],
 					{
 
 
@@ -337,7 +367,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -355,7 +385,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -385,13 +415,13 @@
             <div id="TopCities" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 							<?php echo wpls_TopCities("city"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopCities', [data],
+				  var TopOS = $.jqplot ('TopCities', [data],
 					{
 
 
@@ -401,7 +431,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -419,7 +449,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -450,13 +480,13 @@
             <div id="TopReferers" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 							<?php echo wpls_TopReferers("referer_doamin"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopReferers', [data],
+				  var TopOS = $.jqplot ('TopReferers', [data],
 					{
 
 
@@ -466,7 +496,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -484,7 +514,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,
@@ -520,13 +550,13 @@
             <div id="TopUser" style="height:350px;width:100%; "></div>
             
             <script>
-				jQuery(document).ready(function(){
+				jQuery(document).ready(function($){
 				  var data =
 				  			[
 							<?php echo wpls_TopUser("userid"); ?>
 							];
 							
-				  var TopOS = jQuery.jqplot ('TopUser', [data],
+				  var TopOS = $.jqplot ('TopUser', [data],
 					{
 
 
@@ -536,7 +566,7 @@
 						// Make this a pie chart.
 
 						shadow:false,
-						renderer: jQuery.jqplot.PieRenderer,
+						renderer: $.jqplot.PieRenderer,
 						rendererOptions: {
 							showDataLabels: true,
 						  // Put data labels on the pie slices.
@@ -554,7 +584,7 @@
 					  legend: {
 							show:true,
 							location: 's',
-							renderer: jQuery.jqplot.EnhancedLegendRenderer,
+							renderer: $.jqplot.EnhancedLegendRenderer,
 							rendererOptions:
 								{
 								numberColumns: 3,

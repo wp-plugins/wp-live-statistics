@@ -7,6 +7,109 @@ if ( ! defined('ABSPATH')) exit; // if direct access
 
 
 
+
+
+// Function that outputs the contents of the dashboard widget
+function wpls_dashboard_widget( $post, $callback_args ) {
+	
+	
+	$wpls_refresh_time = get_option( 'wpls_refresh_time' );	
+	
+	if(!empty($wpls_refresh_time))
+		{
+			if($wpls_refresh_time < 3000)
+				{
+					$wpls_refresh_time = '3000';
+				}
+			else
+				{
+				$wpls_refresh_time = $wpls_refresh_time;
+				}
+			
+		}
+	else
+		{
+			$wpls_refresh_time = '3000';
+		}
+	
+	
+	?>
+	<p>Estimate total visitor online right now on your website. <?php echo wpls_get_datetime(); ?></p>
+	<p class="total-online" style="text-align:center; font-size:30px;">0</p>
+    
+	<script>		
+        jQuery(document).ready(function($)
+            {
+    
+                setInterval(function(){
+                    $.ajax(
+                            {
+                        type: 'POST',
+                        url: wpls_ajax.wpls_ajaxurl,
+                        data: {"action": "wpls_ajax_online_total"},
+                        success: function(data)
+                                {
+                                    $(".total-online").html(data);
+                                }
+                            });	
+                }, <?php echo $wpls_refresh_time; ?>)
+                        });
+                
+    </script> 
+
+    <?php
+	
+	
+	
+}
+
+// Function used in the action hook
+function wpls_add_dashboard_widgets() {
+	wp_add_dashboard_widget('dashboard_widget', 'WP Live Stats - Total Visitor Online', 'wpls_dashboard_widget');
+}
+
+
+add_action('wp_dashboard_setup', 'wpls_add_dashboard_widgets' );
+
+
+
+
+
+
+function wpls_UniquePageView($isunique) 
+	{	
+		global $wpdb;
+		$table = $wpdb->prefix . "wpls";
+		$result = $wpdb->get_results("SELECT $isunique FROM $table WHERE isunique='yes'", ARRAY_A);
+		$total_rows = $wpdb->num_rows;
+		
+		return $total_rows;
+	}
+
+
+
+
+
+
+function wpls_UniqueVisitor($ip) 
+	{	
+		global $wpdb;
+		$table = $wpdb->prefix . "wpls";
+		$result = $wpdb->get_results("SELECT $ip FROM $table GROUP BY $ip ORDER BY COUNT($ip) DESC", ARRAY_A);
+		$total_rows = $wpdb->num_rows;
+		
+		return $total_rows;
+	}
+	
+	
+	
+	
+	
+
+
+
+
+
 function wpls_TotalSession($session_id) 
 	{	
 		global $wpdb;
@@ -97,7 +200,7 @@ $count = $wpdb->num_rows;
 			
 	}
 
-add_action('wp_login', 'wpls_login', 10, 2);
+//add_action('wp_login', 'wpls_login', 10, 2);
 
 
 function wpls_logout()
@@ -181,6 +284,9 @@ add_action('wp_logout', 'wpls_logout');
 function wpls_register_session(){
     if( !session_id() )
         session_start();
+
+
+		
 }
 add_action('init','wpls_register_session');
 
@@ -189,6 +295,7 @@ function wpls_session(){
 
 	$wpls_session_id = session_id();
 	return $wpls_session_id;
+
 
 }
 
@@ -199,7 +306,7 @@ function wpls_ajax_online_total()
 		$table = $wpdb->prefix . "wpls_online";	
 		$count_online = $wpdb->get_results("SELECT * FROM $table", ARRAY_A);
 		$count_online = $wpdb->num_rows;
-		
+
 		echo $count_online;
 		
 		$time = date("Y-m-d H:i:s", strtotime(wpls_get_datetime()." -120 seconds"));
@@ -295,14 +402,7 @@ function wpls_visitors_page()
 		 $count = 1;
 		foreach( $entries as $entry )
 			{
-				
 
-				
-				
-				
-				
-				
-				
 				
 				$class = ( $count % 2 == 0 ) ? ' class="alternate"' : '';
 				
@@ -319,7 +419,7 @@ function wpls_visitors_page()
 				else
 					{
 						
-						echo "<a href='http://".$url_id."'>".$url_term."</a>";
+						echo "<a href='".$url_id."'>".$url_term."</a>";
 
 					}
 				echo "</td>";				
@@ -433,7 +533,7 @@ function wpls_visitors_page()
 					}
 				else
 					{
-						echo "<span title='Referer URL' class='referer_url'> <a href='http://".$referer_url."'>URL</a></span>";
+						echo "<span title='Referer URL' class='referer_url'> <a href='".$referer_url."'>URL</a></span>";
 					}				
 
 				echo "</td>";				
@@ -767,5 +867,38 @@ function wpls_get_referer()
 
 
 
+	function wpls_live_cities_array()
+		{
+			
+			$html = '';
+					
+			$html .= '<script>';
+			
+			$html .= 'var address = [];';
+							
+			
+			global $wpdb;
+			$table = $wpdb->prefix . "wpls_online";
+			$entries = $wpdb->get_results( "SELECT * FROM $table ORDER BY wpls_time DESC" );
+			
+			$i = 0;
+			foreach( $entries as $entry )
+				{
+					$countryName = $entry->countryName;
+					$city = $entry->city;	
+					
+					$html .='address[ '.$i.' ] = "'.$city.' '.$countryName.'";';
 
+					$i++;			
+				}
+			$html .= '</script>';		
+				
+			echo $html;
+			
+			die();
+			
 
+		}
+
+add_action('wp_ajax_wpls_live_cities_array', 'wpls_live_cities_array');
+add_action('wp_ajax_nopriv_wpls_live_cities_array', 'wpls_live_cities_array');

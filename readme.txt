@@ -3,8 +3,8 @@ Contributors: paratheme
 Donate link: 
 Tags:  statistics, wordpress statistics, wp statistics, live statistics,wordpress stats, live visitors, live Stats, web Stats, analytics, visitors count, stats
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.0
+Tested up to: 4.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,8 +65,9 @@ take a test by visiting any page of your website.
 
 == Screenshots ==
 
-1. dashboard.
-
+1. Dashboard.
+1. Visitors list.
+1. Live Visitors & Map.
 
 
 
@@ -74,6 +75,10 @@ take a test by visiting any page of your website.
 == Changelog ==
 
 
+= 1.1 =
+* 25/01/2015 - add - Refresh time to check visitor online..
+* 25/01/2015 - add - Live visitors and map.
+* 25/01/2015 - add - Visitors list page.
 
 = 1.0 =
 * 10/11/2014 - Initial release

@@ -1,10 +1,5 @@
-
 jQuery(document).ready(function($)
 	{
-
-
-
-
 
 
 	$('a').bind('click', function(event) {
@@ -12,7 +7,7 @@ jQuery(document).ready(function($)
 		//document.cookie="wpls_landing=0; path=/";
 		
 			//var wpls_online_count = -1;
-			jQuery.ajax(
+			$.ajax(
 				{
 			type: 'POST',
 			url: wpls_ajax.wpls_ajaxurl,
@@ -36,7 +31,7 @@ jQuery(document).ready(function($)
 		//document.cookie="wpls_landing=0; path=/";
 		
 			//var wpls_online_count = -1;
-			jQuery.ajax(
+			$.ajax(
 				{
 			type: 'POST',
 			url: wpls_ajax.wpls_ajaxurl,
@@ -58,11 +53,4 @@ jQuery(document).ready(function($)
 		
 		
 	
-});	
-
-
-
-
-
-
-
+});

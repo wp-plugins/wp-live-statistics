@@ -3,7 +3,7 @@
 Plugin Name: WP Live Statistics
 Plugin URI: 
 Description: 
-Version: 1.0
+Version: 1.1
 Author: paratheme
 Author URI: http://paratheme.com
 License: GPLv2 or later
@@ -152,7 +152,7 @@ function wpls_install()
 		$wpdb->query($sql2);
 		
 
-		$wpls_version= "1.0";
+		$wpls_version= "1.1";
 		update_option('wpls_version', $wpls_version); //update plugin version.
 		
 		$wpls_customer_type= "free"; //customer_type "free"
@@ -331,7 +331,7 @@ function wpls_menu_init() {
 	add_submenu_page('wpls_settings', __('WPLS Dashboard','menu-wpls'), __('Dashboard','menu-wpls'), 'manage_options', 'wpls_dashboard', 'wpls_dashboard');
 
 
-	//add_submenu_page('wpls_settings', __('Live Stats','menu-wpls'), __('Live Stats','menu-wpls'), 'manage_options', 'wpls_admin_online', 'wpls_admin_online');
+	add_submenu_page('wpls_settings', __('Live Visitors','menu-wpls'), __('Live Visitors','menu-wpls'), 'manage_options', 'wpls_admin_online', 'wpls_admin_online');
 	
 	add_submenu_page('wpls_settings', __('Visitors','menu-wpls'), __('Visitors','menu-wpls'), 'manage_options', 'wpls_admin_visitors', 'wpls_admin_visitors');	
 	

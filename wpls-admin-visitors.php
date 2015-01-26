@@ -180,10 +180,12 @@ $entries = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpls ORDER BY id DE
                 <td>
 				
 				<?php
-				
+				$ip = $entry->ip;				
 				$countryName = $entry->countryName;
 				$region = $entry->region;				
 				$city = $entry->city;
+
+				echo "<span title='".$ip."' class='ip'>".$ip."</span>";
 				echo "<span title='".$countryName."' class='flag flag-".strtolower($countryName)."'></span><br />";
 				echo "<span title='".$region."' class='region'>".$region."</span><br />";
 				echo "<span title='".$city."' class='city'>".$city."</span>";
