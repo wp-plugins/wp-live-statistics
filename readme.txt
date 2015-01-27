@@ -17,29 +17,24 @@ get stats for top things like broswers, operating system, Screen Size, Countries
 
 at present this plugin displaying only top 10 thing for every data.
 
+= Features =
+**Awsome Dashboard for stats**
+Awesome graphical representation for top site factors like Top OS, Top Screen Size, Top Browsers, Top Page Terms, Top Countries, Top Cities, Top Referers, Top Pages, Top User.
 
-<strong>How does this work ?</strong>
+**Visitor Online**
+see who visit your website now and from where by using Google map.
 
-When someone visit your website the script on plugin will collect following data 
+**Visitor List**
+List of all visit by date some usefull data you will know.
 
-*  	userid
-*  	event (visit, login, logout)
-*  	browser
-*  	platform(Operating system)
-*  	ip(IP Address)
-*  	city(By IP Address)
-*  	region(By IP Address)
-*  	country Name(By IP Address)
-*  	url_id(Which is visiting)
-*  	referer doamin
-*   referer_url
-*   screensize
-*   is unique visit
-*   page view landing count
+**Filter Top Stats**
+Filter stats between two date and find top factor for your website. like top 20 user, top 10 url and etc.
 
-and store table 'wpls' and 'wpls_online'
+**Exclude Browser**
+Now you can exclude browsers for tracing visit.
 
-
+**Exclude User(by user ID)**
+You can exclude any user by id for tracing.
 
 
 
