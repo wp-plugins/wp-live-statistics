@@ -3,7 +3,7 @@
 Plugin Name: WP Live Statistics
 Plugin URI: 
 Description: 
-Version: 1.1
+Version: 1.2
 Author: paratheme
 Author URI: http://paratheme.com
 License: GPLv2 or later
@@ -33,10 +33,13 @@ define('wpls_share_url', 'http://wordpress.org/plugins/wp-live-statistics/' );
 function wpls_init_scripts()
 	{
 		wp_enqueue_script('jquery');
+
+		wp_enqueue_script('jquery-ui-datepicker');
 		wp_enqueue_style('wp-live-statistics-style', wpls_plugin_url.'css/style.css');
 		wp_enqueue_style('wp-live-statistics-flags', wpls_plugin_url.'css/flags.css');
 		wp_enqueue_script('wp-live-statistics-js', plugins_url( '/js/scripts.js' , __FILE__ ) , array( 'jquery' ));
 		wp_localize_script( 'wp-live-statistics-js', 'wpls_ajax', array( 'wpls_ajaxurl' => admin_url( 'admin-ajax.php')));
+		wp_enqueue_style('jquery-ui', wpls_plugin_url.'css/jquery-ui.css');
 		
 		//ParaAdmin
 		wp_enqueue_style('ParaAdmin', wpls_plugin_url.'ParaAdmin/css/ParaAdmin.css');
@@ -152,7 +155,7 @@ function wpls_install()
 		$wpdb->query($sql2);
 		
 
-		$wpls_version= "1.1";
+		$wpls_version= "1.2";
 		update_option('wpls_version', $wpls_version); //update plugin version.
 		
 		$wpls_customer_type= "free"; //customer_type "free"
@@ -315,7 +318,9 @@ function wpls_admin_geo(){
 	include('wpls-admin-geo.php');
 	}
 
-
+function wpls_admin_filter(){
+	include('wpls-admin-filter.php');
+	}
 
 
 
@@ -335,7 +340,10 @@ function wpls_menu_init() {
 	
 	add_submenu_page('wpls_settings', __('Visitors','menu-wpls'), __('Visitors','menu-wpls'), 'manage_options', 'wpls_admin_visitors', 'wpls_admin_visitors');	
 	
-	//add_submenu_page('wpls_settings', __('Top Geo','menu-wpls'), __('Top Geo','menu-wpls'), 'manage_options', 'wpls_admin_geo', 'wpls_admin_geo');	
+	//add_submenu_page('wpls_settings', __('Top Geo','menu-wpls'), __('Top Geo','menu-wpls'), 'manage_options', 'wpls_admin_geo', 'wpls_admin_geo');
+	
+	add_submenu_page('wpls_settings', __('Filter','menu-wpls'), __('Filter Stats','menu-wpls'), 'manage_options', 'wpls_admin_filter', 'wpls_admin_filter');		
+		
 	
 }
 

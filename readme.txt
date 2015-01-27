@@ -4,7 +4,7 @@ Donate link:
 Tags:  statistics, wordpress statistics, wp statistics, live statistics,wordpress stats, live visitors, live Stats, web Stats, analytics, visitors count, stats
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,8 +75,12 @@ take a test by visiting any page of your website.
 == Changelog ==
 
 
+= 1.2 =
+* 27/01/2015 - add - stats for top factors on your site.
+
+
 = 1.1 =
-* 25/01/2015 - add - Refresh time to check visitor online..
+* 25/01/2015 - add - Refresh time to check visitor online.
 * 25/01/2015 - add - Live visitors and map.
 * 25/01/2015 - add - Visitors list page.
 

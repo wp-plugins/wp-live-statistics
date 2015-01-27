@@ -902,3 +902,165 @@ function wpls_get_referer()
 
 add_action('wp_ajax_wpls_live_cities_array', 'wpls_live_cities_array');
 add_action('wp_ajax_nopriv_wpls_live_cities_array', 'wpls_live_cities_array');
+
+
+
+
+
+	function wpls_top_filter()
+		{
+			
+			$filter_for = $_POST['filter_for'];
+			$max_items = (int)$_POST['max_items'];					
+			$first_date = $_POST['first_date'];			
+			$second_date = $_POST['second_date'];			
+			
+			if($filter_for == 'url_id')
+				{
+					$factor = 'URL';
+				}
+			else if($filter_for == 'userid')
+				{
+					$factor = 'User ID';
+				}
+			else if($filter_for == 'platform')
+				{
+					$factor = 'Platform(OS)';
+				}			
+			else if($filter_for == 'browser')
+				{
+					$factor = 'Browser';
+				}			
+			else if($filter_for == 'screensize')
+				{
+					$factor = 'Screen Size';
+				}
+			else if($filter_for == 'referer_url')
+				{
+					$factor = 'Referer Url';
+				}
+			else if($filter_for == 'referer_doamin')
+				{
+					$factor = 'Referer Doamin';
+				}
+			else if($filter_for == 'city')
+				{
+					$factor = 'City';
+				}				
+			else if($filter_for == 'countryName')
+				{
+					$factor = 'Country';
+				}								
+			else if($filter_for == 'url_term')
+				{
+					$factor = 'Link Type';
+				}								
+				
+			else
+				{
+					$factor = '';
+				}	
+				
+			if(!empty($max_items))
+				{
+					$max_items = $max_items;
+				}
+			else
+				{
+					$max_items = 10;
+				}				
+						
+			
+			global $wpdb;
+			$table = $wpdb->prefix . "wpls";
+			$result = $wpdb->get_results("SELECT $filter_for FROM $table WHERE  (wpls_date BETWEEN '$first_date' AND '$second_date')  GROUP BY $filter_for ORDER BY COUNT($filter_for)   DESC LIMIT $max_items", ARRAY_A);
+			$total_rows = $wpdb->num_rows;
+			
+			$count_factor = $wpdb->get_results("SELECT $filter_for, COUNT(*) AS $filter_for FROM $table WHERE  (wpls_date BETWEEN '$first_date' AND '$second_date')  GROUP BY $filter_for ORDER BY COUNT($filter_for)  DESC LIMIT $max_items", ARRAY_A);
+			
+			
+			
+			
+			$html = '';
+			
+			$html .= 'Top <u>'.$total_rows.'</u> <b>'.ucfirst($factor). '</b> between date: <b>'.$first_date.'</b> and <b>'.$second_date.'</b><br /><br />';
+
+
+			$html .='<table class="widefat">';
+			$html .='<thead><tr><th>Factor: '.$factor.'</th><th>Count</th></tr></thead>';
+
+			$i=0;
+			while($total_rows>$i)
+				{	
+					$class = ( $i % 2 == 0 ) ? ' alternate ' : '';
+
+					$html .= '<tr class="'.$class.'">';
+					
+					if( is_numeric($result[$i][$filter_for]))
+						{
+							if($filter_for=='url_id')
+								{
+									$value = get_permalink($result[$i][$filter_for]);
+								}
+							else if($filter_for=='userid')
+								{
+									$value = get_the_author_meta('user_email',$result[$i][$filter_for]).' - '.get_the_author_meta('display_name',$result[$i][$filter_for]);
+								}
+							else
+								{
+									$value = $result[$i][$filter_for];
+								}
+							
+							
+						}
+					else
+						{
+
+							$value = $result[$i][$filter_for];
+							
+						}
+					$html .='<td>'.$value;
+					$html .="</td>";
+					
+					$html .="<td>".$count_factor[$i][$filter_for];
+					$html .="</td>";
+
+
+					$html .="</tr>";
+			
+					
+					
+					$i++;
+				}
+				
+				$html .="</table>";		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			echo $html;
+			
+			
+			die();
+			
+		}
+
+
+add_action('wp_ajax_wpls_top_filter', 'wpls_top_filter');
+add_action('wp_ajax_nopriv_wpls_top_filter', 'wpls_top_filter');
+
+
+
+
+
+

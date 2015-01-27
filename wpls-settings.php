@@ -111,7 +111,7 @@
     if($wpls_customer_type=="free")
         {
     
-            echo 'You are using <strong> '.$wpls_customer_type.' version  '.$wpls_version.'</strong> of <strong>'.wpls_plugin_name.'</strong>, To get more feature you could try our premium version. ';
+            echo 'You are using <strong> '.$wpls_customer_type.' version  '.$wpls_version.'</strong> of <strong>'.wpls_plugin_name.'</strong>, You could donate this projet by buying some other plugin from our site.';
             
             echo '<a href="'.wpls_pro_url.'">'.wpls_pro_url.'</a>';
             

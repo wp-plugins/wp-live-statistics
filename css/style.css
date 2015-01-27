@@ -58,7 +58,12 @@
 	}
 	
 	
-	
+.wpls-fliters{}
+.wpls-fliters .filter-tools,
+.wpls-fliters .filter-result
+ {
+  padding: 15px;
+}
 
 	
 	
