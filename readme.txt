@@ -15,25 +15,36 @@ Live website stats for wordpress sites.
 Awesome web stats for your website.
 get stats for top things like broswers, operating system, Screen Size, Countries, Cities, Referers, Pages, User, link type and many more.
 
-at present this plugin displaying only top 10 thing for every data.
+
+
+### WP Live Statistics by http://paratheme.com
+
+* [Buy Premium!&raquo;](http://paratheme.com/items/wp-live-statistics-wordpress-stats-plugin/)
+
 
 = Features =
 **Awsome Dashboard for stats**
+
 Awesome graphical representation for top site factors like Top OS, Top Screen Size, Top Browsers, Top Page Terms, Top Countries, Top Cities, Top Referers, Top Pages, Top User.
 
 **Visitor Online**
+
 see who visit your website now and from where by using Google map.
 
 **Visitor List**
-List of all visit by date some usefull data you will know.
+
+List of all visit by date some usefull data you will know about visitors.
 
 **Filter Top Stats**
+
 Filter stats between two date and find top factor for your website. like top 20 user, top 10 url and etc.
 
-**Exclude Browser**
-Now you can exclude browsers for tracing visit.
+**Exclude Browser(Pro feature)**
 
-**Exclude User(by user ID)**
+Now you can exclude any browsers(bot's) for tracing visit.
+
+**Exclude User by ID(Pro feature)**
+
 You can exclude any user by id for tracing.
 
 
