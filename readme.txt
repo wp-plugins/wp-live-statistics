@@ -3,7 +3,7 @@ Contributors: paratheme
 Donate link: 
 Tags:  statistics, wordpress statistics, wp statistics, live statistics,wordpress stats, live visitors, live Stats, web Stats, analytics, visitors count, stats
 Requires at least: 3.8
-Tested up to: 4.1
+Tested up to: 4.2.4
 Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
